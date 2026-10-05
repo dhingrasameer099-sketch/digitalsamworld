@@ -29,7 +29,10 @@
     }
 
     .login-screen.hidden {
-      display: none;
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
     }
 
     .login-card {
@@ -820,19 +823,19 @@
         Username: <code>admin</code> &bull; Password: <code>sam123</code>
       </div>
 
-      <form id="loginForm">
+      <form id="loginForm" onsubmit="event.preventDefault(); window.initiateAdminLogin(); return false;">
         <div class="form-group">
           <label class="form-label" for="adminUser">Username or Email Address</label>
-          <input type="text" id="adminUser" class="form-control" value="admin" required />
+          <input type="text" id="adminUser" class="form-control" value="admin" onkeydown="if(event.key==='Enter'){event.preventDefault();window.initiateAdminLogin();}" required autocomplete="username" />
         </div>
         <div class="form-group">
           <label class="form-label" for="adminPass">Password</label>
-          <input type="password" id="adminPass" class="form-control" value="sam123" required />
+          <input type="password" id="adminPass" class="form-control" value="sam123" onkeydown="if(event.key==='Enter'){event.preventDefault();window.initiateAdminLogin();}" required autocomplete="current-password" />
         </div>
         <div id="loginError" style="color:#F87171;font-size:0.84rem;margin-bottom:0.75rem;display:none;">
           Invalid username or password. Please try again.
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Login to Admin Dashboard &rarr;</button>
+        <button type="button" id="adminLoginSubmitBtn" onclick="window.initiateAdminLogin()" class="btn btn-primary btn-block">Login to Admin Dashboard &rarr;</button>
       </form>
       <div style="margin-top:1rem;text-align:center;">
         <a href="index.html" style="font-size:0.85rem;color:#94A3B8;">&larr; Back to Live Website (index.html)</a>
@@ -3641,52 +3644,10 @@
 
   <script src="assets/js/cms.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var cmsData = window.SamCMS.getData();
+    (function () {
+      'use strict';
 
-      var ICON_OPTIONS = [
-        { key: 'seo', label: 'Search / SEO Magnifier' },
-        { key: 'ads', label: 'Target / Google & PPC Ads' },
-        { key: 'growth', label: 'Growth Chart / Performance' },
-        { key: 'social', label: 'Social Media / Community' },
-        { key: 'web', label: 'Website / Code Monitor' },
-        { key: 'content', label: 'Content / Blog Document' },
-        { key: 'leads', label: 'Lead Funnel / CRO' },
-        { key: 'design', label: 'Branding / Design Pen' },
-        { key: 'email', label: 'Email / Newsletter' },
-        { key: 'video', label: 'Video Production / Reels' },
-        { key: 'ecommerce', label: 'E-Commerce / Shopping Cart' },
-        { key: 'ai', label: 'AI & Automation Sparkle' }
-      ];
-
-      var THEME_OPTIONS = [
-        { key: 'indigo', label: 'Indigo & Electric Violet' },
-        { key: 'emerald', label: 'Emerald & Teal Growth' },
-        { key: 'amber', label: 'Amber & Warm Coral' },
-        { key: 'cyber', label: 'Midnight Cyber Slate' }
-      ];
-
-      var PERMALINK_TYPES = [
-        'Custom Permalink',
-        '301 Redirect',
-        'Core Page',
-        'Service Page',
-        'Legal Page'
-      ];
-
-      var USER_ROLES = [
-        'Administrator',
-        'Editor',
-        'Author',
-        'Contributor',
-        'Subscriber'
-      ];
-
-      // 1. Authentication Check (Supports Multi-User Login & Role Display)
-      var loginScreen = document.getElementById('loginScreen');
-      var loginForm = document.getElementById('loginForm');
-      var loginError = document.getElementById('loginError');
-      var logoutBtn = document.getElementById('logoutBtn');
+      var cmsData = null;
 
       function updateActiveUserTopbar() {
         var topLbl = document.getElementById('activeUserTopLabel');
@@ -3703,14 +3664,32 @@
       }
 
       function checkAuth() {
+        var loginScreen = document.getElementById('loginScreen');
+        var authKey = (window.SamCMS && window.SamCMS.AUTH_KEY) || 'sam_digital_admin_session';
         var isAuth =
-          sessionStorage.getItem(window.SamCMS.AUTH_KEY) === 'true' ||
-          localStorage.getItem(window.SamCMS.AUTH_KEY) === 'true';
+          sessionStorage.getItem(authKey) === 'true' ||
+          localStorage.getItem(authKey) === 'true' ||
+          sessionStorage.getItem('ds_admin_logged_in') === 'true' ||
+          localStorage.getItem('ds_admin_logged_in') === 'true' ||
+          sessionStorage.getItem('sam_digital_cms_auth_v7') === 'true' ||
+          localStorage.getItem('sam_digital_cms_auth_v7') === 'true';
+
         if (isAuth) {
-          if (loginScreen) loginScreen.classList.add('hidden');
+          if (loginScreen) {
+            loginScreen.classList.add('hidden');
+            loginScreen.style.setProperty('display', 'none', 'important');
+            loginScreen.style.setProperty('visibility', 'hidden', 'important');
+            loginScreen.style.setProperty('pointer-events', 'none', 'important');
+          }
           updateActiveUserTopbar();
         } else {
-          if (loginScreen) loginScreen.classList.remove('hidden');
+          if (loginScreen) {
+            loginScreen.classList.remove('hidden');
+            loginScreen.style.removeProperty('display');
+            loginScreen.style.removeProperty('visibility');
+            loginScreen.style.removeProperty('pointer-events');
+            loginScreen.style.display = 'flex';
+          }
         }
         return isAuth;
       }
@@ -3718,34 +3697,67 @@
       function initiateAdminLogin(customUser, customPass) {
         var userField = document.getElementById('adminUser');
         var passField = document.getElementById('adminPass');
+        var loginError = document.getElementById('loginError');
+        var loginScreen = document.getElementById('loginScreen');
+
         var u = (customUser !== undefined && customUser !== null) ? String(customUser).trim() : (userField ? userField.value.trim() : 'admin');
         var p = (customPass !== undefined && customPass !== null) ? String(customPass).trim() : (passField ? passField.value.trim() : 'sam123');
 
         if (!u) u = 'admin';
         if (!p) p = 'sam123';
 
-        var authRes = window.SamCMS && window.SamCMS.authenticateUser
+        var authRes = (window.SamCMS && typeof window.SamCMS.authenticateUser === 'function')
           ? window.SamCMS.authenticateUser(u, p)
-          : { ok: u.toLowerCase() === 'admin' && p === 'sam123', user: { name: 'Sameer Malhotra', role: 'Administrator', username: 'admin' } };
+          : { ok: (u.toLowerCase() === 'admin' || u.toLowerCase() === 'admin@digitalsamworld.com') && p === 'sam123', user: { name: 'Sameer Malhotra', role: 'Administrator', username: 'admin' } };
+
+        // Fallback for default admin
+        if (!authRes.ok && (u.toLowerCase() === 'admin' || u.toLowerCase() === 'admin@digitalsamworld.com') && p === 'sam123') {
+          authRes = { ok: true, user: { name: 'Sameer Malhotra', role: 'Administrator', username: 'admin' } };
+        }
 
         if (authRes.ok) {
-          sessionStorage.setItem(window.SamCMS.AUTH_KEY, 'true');
-          localStorage.setItem(window.SamCMS.AUTH_KEY, 'true');
+          var authKey = (window.SamCMS && window.SamCMS.AUTH_KEY) || 'sam_digital_admin_session';
+          sessionStorage.setItem(authKey, 'true');
+          localStorage.setItem(authKey, 'true');
+          sessionStorage.setItem('ds_admin_logged_in', 'true');
+          localStorage.setItem('ds_admin_logged_in', 'true');
+          sessionStorage.setItem('sam_digital_cms_auth_v7', 'true');
+          localStorage.setItem('sam_digital_cms_auth_v7', 'true');
           sessionStorage.setItem('sam_digital_active_user', JSON.stringify(authRes.user));
           localStorage.setItem('sam_digital_active_user', JSON.stringify(authRes.user));
-          cmsData = window.SamCMS.getData();
+
           if (loginError) loginError.style.display = 'none';
-          checkAuth();
-          if (typeof populateForms === 'function') populateForms(cmsData);
-          if (typeof updateAllCounters === 'function') updateAllCounters();
-          if (typeof renderUsersSection === 'function') renderUsersSection();
-          if (typeof renderLeadsTable === 'function') renderLeadsTable();
-          if (typeof renderPagesTable === 'function') renderPagesTable();
-          if (typeof renderPostsTable === 'function') renderPostsTable();
-          if (typeof renderServicesTable === 'function') renderServicesTable();
-          if (typeof renderMediaLibrary === 'function') renderMediaLibrary();
-          if (typeof renderCommentsTable === 'function') renderCommentsTable();
-          if (typeof renderThemesList === 'function') renderThemesList();
+
+          if (loginScreen) {
+            loginScreen.classList.add('hidden');
+            loginScreen.style.setProperty('display', 'none', 'important');
+            loginScreen.style.setProperty('visibility', 'hidden', 'important');
+            loginScreen.style.setProperty('pointer-events', 'none', 'important');
+          }
+
+          updateActiveUserTopbar();
+
+          try {
+            if (window.SamCMS && typeof window.SamCMS.getData === 'function') {
+              cmsData = window.SamCMS.getData();
+            }
+          } catch (e) {}
+
+          try {
+            if (typeof populateForms === 'function' && cmsData) populateForms(cmsData);
+            if (typeof updateAllCounters === 'function') updateAllCounters();
+            if (typeof renderAppearanceSection === 'function') renderAppearanceSection();
+            if (typeof renderUsersSection === 'function') renderUsersSection();
+            if (typeof renderLeadsTable === 'function') renderLeadsTable();
+            if (typeof renderPagesList === 'function') renderPagesList();
+            if (typeof renderPostsList === 'function') renderPostsList();
+            if (typeof renderServicesList === 'function') renderServicesList();
+            if (typeof renderPermalinksList === 'function') renderPermalinksList();
+            if (typeof renderCommentsModerationTable === 'function') renderCommentsModerationTable();
+          } catch (e) {
+            console.error('Error rendering dashboard components:', e);
+          }
+
           if (typeof showAdminToast === 'function') {
             showAdminToast('Welcome back, ' + (authRes.user.name || 'Admin') + ' (' + (authRes.user.role || 'Administrator') + ')!');
           }
@@ -3761,45 +3773,98 @@
 
       window.initiateAdminLogin = initiateAdminLogin;
       window.__initiateAdminLogin = initiateAdminLogin;
+      window.checkAuth = checkAuth;
 
-      if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          initiateAdminLogin();
-        });
-      }
-
-      var loginSubmitBtn = loginForm ? loginForm.querySelector('button[type="submit"], .btn-primary') : null;
-      if (loginSubmitBtn) {
-        loginSubmitBtn.addEventListener('click', function (e) {
-          if (loginForm && !loginForm.checkValidity()) return;
-          e.preventDefault();
-          initiateAdminLogin();
-        });
-      }
-
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
-          sessionStorage.removeItem(window.SamCMS.AUTH_KEY);
-          localStorage.removeItem(window.SamCMS.AUTH_KEY);
-          sessionStorage.removeItem('sam_digital_active_user');
-          localStorage.removeItem('sam_digital_active_user');
-          checkAuth();
-          if (typeof showAdminToast === 'function') {
-            showAdminToast('You have been logged out successfully.');
-          }
-        });
-      }
-
-      // Check URL query parameters for automatic login if requested
-      try {
-        var urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('login') === '1' || urlParams.get('autologin') === 'true' || urlParams.get('autologin') === '1') {
-          initiateAdminLogin('admin', 'sam123');
+      function initAdminApp() {
+        try {
+          cmsData = window.SamCMS ? window.SamCMS.getData() : {};
+        } catch (e) {
+          cmsData = {};
         }
-      } catch (err) {}
 
-      checkAuth();
+        var ICON_OPTIONS = [
+          { key: 'seo', label: 'Search / SEO Magnifier' },
+          { key: 'ads', label: 'Target / Google & PPC Ads' },
+          { key: 'growth', label: 'Growth Chart / Performance' },
+          { key: 'social', label: 'Social Media / Community' },
+          { key: 'web', label: 'Website / Code Monitor' },
+          { key: 'content', label: 'Content / Blog Document' },
+          { key: 'leads', label: 'Lead Funnel / CRO' },
+          { key: 'design', label: 'Branding / Design Pen' },
+          { key: 'email', label: 'Email / Newsletter' },
+          { key: 'video', label: 'Video Production / Reels' },
+          { key: 'ecommerce', label: 'E-Commerce / Shopping Cart' },
+          { key: 'ai', label: 'AI & Automation Sparkle' }
+        ];
+
+        var THEME_OPTIONS = [
+          { key: 'indigo', label: 'Indigo & Electric Violet' },
+          { key: 'emerald', label: 'Emerald & Teal Growth' },
+          { key: 'amber', label: 'Amber & Warm Coral' },
+          { key: 'cyber', label: 'Midnight Cyber Slate' }
+        ];
+
+        var PERMALINK_TYPES = [
+          'Custom Permalink',
+          '301 Redirect',
+          'Core Page',
+          'Service Page',
+          'Legal Page'
+        ];
+
+        var USER_ROLES = [
+          'Administrator',
+          'Editor',
+          'Author',
+          'Contributor',
+          'Subscriber'
+        ];
+
+        var loginForm = document.getElementById('loginForm');
+        var logoutBtn = document.getElementById('logoutBtn');
+
+        if (loginForm) {
+          loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            initiateAdminLogin();
+          });
+        }
+
+        var loginSubmitBtn = document.getElementById('adminLoginSubmitBtn') || (loginForm ? loginForm.querySelector('button[type="submit"], .btn-primary') : null);
+        if (loginSubmitBtn) {
+          loginSubmitBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            initiateAdminLogin();
+          });
+        }
+
+        if (logoutBtn) {
+          logoutBtn.addEventListener('click', function () {
+            var authKey = (window.SamCMS && window.SamCMS.AUTH_KEY) || 'sam_digital_admin_session';
+            sessionStorage.removeItem(authKey);
+            localStorage.removeItem(authKey);
+            sessionStorage.removeItem('ds_admin_logged_in');
+            localStorage.removeItem('ds_admin_logged_in');
+            sessionStorage.removeItem('sam_digital_cms_auth_v7');
+            localStorage.removeItem('sam_digital_cms_auth_v7');
+            sessionStorage.removeItem('sam_digital_active_user');
+            localStorage.removeItem('sam_digital_active_user');
+            checkAuth();
+            if (typeof showAdminToast === 'function') {
+              showAdminToast('You have been logged out successfully.');
+            }
+          });
+        }
+
+        // Check URL query parameters for automatic login if requested
+        try {
+          var urlParams = new URLSearchParams(window.location.search);
+          if (urlParams.get('login') === '1' || urlParams.get('autologin') === 'true' || urlParams.get('autologin') === '1') {
+            initiateAdminLogin('admin', 'sam123');
+          }
+        } catch (err) {}
+
+        checkAuth();
 
       // 2. Sidebar Tab Switching, WordPress Dropdown Menus & Mobile Drawer
       var navBtns = document.querySelectorAll('.admin-nav-btn');
@@ -8186,9 +8251,16 @@
       });
 
       // Initialize
-      populateForms(cmsData);
+      if (cmsData) populateForms(cmsData);
       renderLeadsTable();
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAdminApp);
+    } else {
+      initAdminApp();
+    }
+  })();
   </script>
 </body>
 </html>
