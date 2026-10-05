@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="dswGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <linearGradient id="dswAccent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+  </defs>
+  <!-- Background Squircle -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#dswGrad)" />
+  <!-- Subtle inner border -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.2" />
+  <!-- World Orbital Ring -->
+  <ellipse cx="32" cy="32" rx="19" ry="8" fill="none" stroke="url(#dswAccent)" stroke-width="2.6" transform="rotate(-28 32 32)" stroke-linecap="round" />
+  <!-- Stylized 'D' Monogram for Digital -->
+  <path d="M21 18V46" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
+  <path d="M21 18H31C38.5 18 44 24.2 44 32C44 39.8 38.5 46 31 46H21" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Glowing World Node -->
+  <circle cx="39" cy="27" r="3.2" fill="#10B981" />
+</svg>

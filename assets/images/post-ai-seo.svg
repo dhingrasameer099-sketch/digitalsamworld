@@ -1,0 +1,119 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1120"/>
+      <stop offset="60%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#312E81"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <filter id="blurFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="200" cy="120" r="180" fill="#4F46E5" opacity="0.35" filter="url(#blurFilter)"/>
+  <circle cx="1020" cy="500" r="220" fill="#8B5CF6" opacity="0.3" filter="url(#blurFilter)"/>
+  <circle cx="950" cy="180" r="140" fill="#06B6D4" opacity="0.25" filter="url(#blurFilter)"/>
+
+  <!-- Grid Overlay -->
+  <g stroke="#334155" stroke-width="1" opacity="0.25">
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="250" y1="0" x2="250" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="550" y1="0" x2="550" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="850" y1="0" x2="850" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="230" x2="1200" y2="230"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="490" x2="1200" y2="490"/>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(80, 80)">
+    <rect width="360" height="42" rx="21" fill="rgba(99, 102, 241, 0.18)" stroke="#6366F1" stroke-width="1.5"/>
+    <circle cx="24" cy="21" r="6" fill="#10B981"/>
+    <text x="42" y="27" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="#E0E7FF" letter-spacing="1">DIGITALSAMWORLD • AI SEARCH</text>
+  </g>
+
+  <!-- Main Headline -->
+  <text x="80" y="200" font-family="'Outfit', system-ui, sans-serif" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+    How AI Search (GEO &amp; AEO)
+  </text>
+  <text x="80" y="265" font-family="'Outfit', system-ui, sans-serif" font-size="52" font-weight="800" fill="url(#glow)" letter-spacing="-0.5">
+    Is Redefining SEO in India
+  </text>
+
+  <!-- Subtitle -->
+  <text x="80" y="325" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="22" font-weight="500" fill="#CBD5E1">
+    Ranking in ChatGPT, Google Gemini &amp; AI Overviews
+  </text>
+
+  <!-- Illustration Card Right Side -->
+  <g transform="translate(730, 110)">
+    <!-- Card Frame -->
+    <rect width="390" height="410" rx="20" fill="rgba(15, 23, 42, 0.75)" stroke="rgba(148, 163, 184, 0.25)" stroke-width="2"/>
+    
+    <!-- AI Search Simulation Header -->
+    <rect x="25" y="25" width="340" height="50" rx="12" fill="rgba(99, 102, 241, 0.2)" stroke="#6366F1" stroke-width="1"/>
+    <text x="45" y="56" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#A5B4FC">Prompt: "Best SEO agency in Chandigarh?"</text>
+
+    <!-- AI Output Box -->
+    <rect x="25" y="95" width="340" height="280" rx="14" fill="rgba(30, 41, 59, 0.6)"/>
+    <circle cx="55" cy="130" r="14" fill="#10B981"/>
+    <text x="50" y="135" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">#1</text>
+    <text x="80" y="136" font-family="'Outfit', system-ui, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">DigitalSamWorld</text>
+    <text x="80" y="156" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" fill="#94A3B8">SCO 64-65, Sector 34-A, Chandigarh</text>
+
+    <!-- Metrics Bars -->
+    <rect x="45" y="185" width="300" height="8" rx="4" fill="rgba(255,255,255,0.1)"/>
+    <rect x="45" y="185" width="285" height="8" rx="4" fill="url(#tealGrad)"/>
+    <text x="45" y="215" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#67E8F9">98.4% AI Citation Probability</text>
+
+    <rect x="45" y="240" width="300" height="8" rx="4" fill="rgba(255,255,255,0.1)"/>
+    <rect x="45" y="240" width="270" height="8" rx="4" fill="url(#glow)"/>
+    <text x="45" y="270" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#F472B6">+320% Organic AI Traffic Growth</text>
+
+    <!-- Entity Schema Pill -->
+    <g transform="translate(45, 300)">
+      <rect width="135" height="32" rx="16" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981" stroke-width="1"/>
+      <text x="18" y="21" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#6EE7B7">&#10003; JSON-LD Verified</text>
+    </g>
+    <g transform="translate(195, 300)">
+      <rect width="150" height="32" rx="16" fill="rgba(99, 102, 241, 0.2)" stroke="#818CF8" stroke-width="1"/>
+      <text x="18" y="21" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#C7D2FE">LLM Knowledge Graph</text>
+    </g>
+  </g>
+
+  <!-- Bottom Pills -->
+  <g transform="translate(80, 490)">
+    <rect width="150" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="22" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#128197; Sep 30, 2026</text>
+  </g>
+  <g transform="translate(245, 490)">
+    <rect width="130" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="20" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#9201; 6 Min Read</text>
+  </g>
+  <g transform="translate(390, 490)">
+    <rect width="210" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="20" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#9998; Author: Riya Gill</text>
+  </g>
+
+  <!-- Bottom Brand Watermark -->
+  <text x="80" y="580" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#64748B">
+    digitalsamworld.com &bull; SCO 64-65, 2nd Floor, Sector 34-A, Chandigarh &bull; +91 82840 38539
+  </text>
+</svg>

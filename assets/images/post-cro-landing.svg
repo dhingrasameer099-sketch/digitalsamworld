@@ -1,0 +1,88 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgCro" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#180C05"/>
+      <stop offset="60%" stop-color="#361706"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </linearGradient>
+    <filter id="blurCro" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgCro)"/>
+  <circle cx="180" cy="140" r="160" fill="#D97706" opacity="0.35" filter="url(#blurCro)"/>
+  <circle cx="1040" cy="480" r="200" fill="#EA580C" opacity="0.25" filter="url(#blurCro)"/>
+
+  <!-- Top Badge -->
+  <g transform="translate(80, 80)">
+    <rect width="370" height="42" rx="21" fill="rgba(245, 158, 11, 0.18)" stroke="#F59E0B" stroke-width="1.5"/>
+    <circle cx="24" cy="21" r="6" fill="#10B981"/>
+    <text x="42" y="27" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="#FEF3C7" letter-spacing="1">DIGITALSAMWORLD • WEB DEV &amp; CRO</text>
+  </g>
+
+  <!-- Headline -->
+  <text x="80" y="200" font-family="'Outfit', system-ui, sans-serif" font-size="50" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+    Why Custom High-Speed
+  </text>
+  <text x="80" y="265" font-family="'Outfit', system-ui, sans-serif" font-size="50" font-weight="800" fill="url(#amberGrad)" letter-spacing="-0.5">
+    Landing Pages Double ROAS
+  </text>
+  <text x="80" y="325" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="22" font-weight="500" fill="#CBD5E1">
+    99/100 Core Web Vitals, 1.2s Load Speed &amp; 2-Step WhatsApp Lead Funnels
+  </text>
+
+  <!-- Right Visual: Speed & CRO Blueprint -->
+  <g transform="translate(730, 110)">
+    <rect width="390" height="410" rx="20" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="2"/>
+    
+    <rect x="25" y="25" width="340" height="95" rx="14" fill="rgba(69, 26, 3, 0.6)"/>
+    <circle cx="70" cy="72" r="30" fill="none" stroke="#10B981" stroke-width="5"/>
+    <text x="56" y="80" font-family="'Outfit', system-ui, sans-serif" font-size="22" font-weight="800" fill="#10B981">99</text>
+    <text x="120" y="60" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FCD34D">CORE WEB VITALS SCORE</text>
+    <text x="120" y="85" font-family="'Outfit', system-ui, sans-serif" font-size="22" font-weight="800" fill="#FFFFFF">1.1s LCP &bull; 0 CLS</text>
+
+    <!-- Stat 2 -->
+    <rect x="25" y="135" width="340" height="110" rx="14" fill="rgba(30, 41, 59, 0.7)"/>
+    <text x="45" y="165" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#94A3B8">CONVERSION RATE SURGE</text>
+    <text x="45" y="205" font-family="'Outfit', system-ui, sans-serif" font-size="34" font-weight="800" fill="#F59E0B">2.1% &rarr; 5.6%</text>
+    <text x="45" y="232" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" fill="#E2E8F0">+166% Paid Media Revenue</text>
+
+    <!-- Checklist -->
+    <g transform="translate(35, 265)">
+      <rect width="320" height="34" rx="8" fill="rgba(255,255,255,0.06)"/>
+      <text x="15" y="22" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="600" fill="#E2E8F0">&#10003; Frictionless 2-Step Lead Capture</text>
+    </g>
+    <g transform="translate(35, 310)">
+      <rect width="320" height="34" rx="8" fill="rgba(255,255,255,0.06)"/>
+      <text x="15" y="22" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="600" fill="#E2E8F0">&#10003; One-Tap Instant WhatsApp &amp; Call Triggers</text>
+    </g>
+    <g transform="translate(35, 355)">
+      <rect width="320" height="34" rx="8" fill="rgba(255,255,255,0.06)"/>
+      <text x="15" y="22" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="600" fill="#E2E8F0">&#10003; Above-The-Fold Trust &amp; Case Proof</text>
+    </g>
+  </g>
+
+  <!-- Bottom Pills -->
+  <g transform="translate(80, 490)">
+    <rect width="150" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="22" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#128197; Sep 20, 2026</text>
+  </g>
+  <g transform="translate(245, 490)">
+    <rect width="130" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="20" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#9201; 4 Min Read</text>
+  </g>
+  <g transform="translate(390, 490)">
+    <rect width="210" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="20" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#9998; Author: Kabir Bajwa</text>
+  </g>
+
+  <text x="80" y="580" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#64748B">
+    digitalsamworld.com &bull; Principal UI/UX &amp; High-Speed Web Development Studio
+  </text>
+</svg>

@@ -1,0 +1,85 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgPrice" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#022C22"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <filter id="blurPr" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgPrice)"/>
+  <circle cx="200" cy="150" r="180" fill="#D97706" opacity="0.3" filter="url(#blurPr)"/>
+  <circle cx="1020" cy="480" r="200" fill="#059669" opacity="0.25" filter="url(#blurPr)"/>
+
+  <!-- Top Pill -->
+  <g transform="translate(80, 80)">
+    <rect width="450" height="42" rx="21" fill="rgba(245, 158, 11, 0.18)" stroke="#F59E0B" stroke-width="1.5"/>
+    <circle cx="24" cy="21" r="6" fill="#10B981"/>
+    <text x="42" y="27" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="700" fill="#FEF3C7" letter-spacing="1">DIGITALSAMWORLD • TRANSPARENT PRICING</text>
+  </g>
+
+  <!-- Headline -->
+  <text x="80" y="200" font-family="'Outfit', system-ui, sans-serif" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+    Custom ROI-Focused Digital
+  </text>
+  <text x="80" y="265" font-family="'Outfit', system-ui, sans-serif" font-size="52" font-weight="800" fill="url(#goldGrad)" letter-spacing="-0.5">
+    Marketing Growth Retainers
+  </text>
+  <text x="80" y="325" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="22" font-weight="500" fill="#CBD5E1">
+    Zero Cookie-Cutter Packages &bull; Transparent Deliverables &bull; No Hidden Agency Fees
+  </text>
+
+  <!-- Right Visual: Tiers Mockup -->
+  <g transform="translate(730, 100)">
+    <rect width="390" height="425" rx="20" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(245, 158, 11, 0.35)" stroke-width="2"/>
+    
+    <g transform="translate(30, 25)">
+      <rect width="330" height="80" rx="12" fill="rgba(30, 41, 59, 0.7)"/>
+      <text x="25" y="32" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#FCD34D">TIER 1 &bull; LOCAL ACCELERATOR</text>
+      <text x="25" y="62" font-family="'Outfit', system-ui, sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">₹25,000 – ₹45,000<tspan font-size="14" fill="#94A3B8"> / mo</tspan></text>
+    </g>
+
+    <g transform="translate(30, 120)">
+      <rect width="330" height="95" rx="12" fill="rgba(6, 78, 59, 0.6)" stroke="#10B981" stroke-width="1.5"/>
+      <rect x="235" y="10" width="80" height="22" rx="11" fill="#10B981"/>
+      <text x="247" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#FFFFFF">POPULAR</text>
+      <text x="25" y="32" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#A7F3D0">TIER 2 &bull; NATIONAL SCALE ENGINE</text>
+      <text x="25" y="65" font-family="'Outfit', system-ui, sans-serif" font-size="26" font-weight="800" fill="#FFFFFF">₹50,000 – ₹95,000<tspan font-size="14" fill="#94A3B8"> / mo</tspan></text>
+      <text x="25" y="85" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" fill="#E2E8F0">SEO, GEO, Full Google Ads &amp; Meta ROAS</text>
+    </g>
+
+    <g transform="translate(30, 230)">
+      <rect width="330" height="80" rx="12" fill="rgba(30, 41, 59, 0.7)"/>
+      <text x="25" y="32" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#67E8F9">TIER 3 &bull; ENTERPRISE 360° POD</text>
+      <text x="25" y="62" font-family="'Outfit', system-ui, sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">Custom Bespoke Retainer</text>
+    </g>
+
+    <g transform="translate(30, 325)">
+      <rect width="330" height="75" rx="12" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1"/>
+      <text x="25" y="32" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FCD34D">&#10003; 100% Account Ownership</text>
+      <text x="25" y="55" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" fill="#E2E8F0">Zero Lock-In Contracts &bull; Weekly Sprints</text>
+    </g>
+  </g>
+
+  <!-- Bottom Pills -->
+  <g transform="translate(80, 490)">
+    <rect width="210" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="20" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#128181; Flexible Retainers</text>
+  </g>
+  <g transform="translate(305, 490)">
+    <rect width="180" height="40" rx="8" fill="rgba(255, 255, 255, 0.08)"/>
+    <text x="20" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#E2E8F0">&#128202; 24/7 Live KPI Dashboard</text>
+  </g>
+
+  <text x="80" y="580" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="600" fill="#64748B">
+    digitalsamworld.com &bull; Transparent Indian Agency Pricing &bull; Sector 34-A, Chandigarh
+  </text>
+</svg>
