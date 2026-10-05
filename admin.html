@@ -3703,7 +3703,9 @@
       }
 
       function checkAuth() {
-        var isAuth = sessionStorage.getItem(window.SamCMS.AUTH_KEY) === 'true';
+        var isAuth =
+          sessionStorage.getItem(window.SamCMS.AUTH_KEY) === 'true' ||
+          localStorage.getItem(window.SamCMS.AUTH_KEY) === 'true';
         if (isAuth) {
           loginScreen.classList.add('hidden');
           updateActiveUserTopbar();
@@ -3722,6 +3724,7 @@
 
         if (authRes.ok) {
           sessionStorage.setItem(window.SamCMS.AUTH_KEY, 'true');
+          localStorage.setItem(window.SamCMS.AUTH_KEY, 'true');
           sessionStorage.setItem('sam_digital_active_user', JSON.stringify(authRes.user));
           cmsData = window.SamCMS.getData();
           loginError.style.display = 'none';
@@ -3736,6 +3739,7 @@
 
       logoutBtn.addEventListener('click', function () {
         sessionStorage.removeItem(window.SamCMS.AUTH_KEY);
+        localStorage.removeItem(window.SamCMS.AUTH_KEY);
         sessionStorage.removeItem('sam_digital_active_user');
         checkAuth();
       });
