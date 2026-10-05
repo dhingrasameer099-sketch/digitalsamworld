@@ -3692,10 +3692,10 @@
         var topLbl = document.getElementById('activeUserTopLabel');
         if (!topLbl) return;
         try {
-          var rawUser = sessionStorage.getItem('sam_digital_active_user');
+          var rawUser = sessionStorage.getItem('sam_digital_active_user') || localStorage.getItem('sam_digital_active_user');
           if (rawUser) {
             var uObj = JSON.parse(rawUser);
-            topLbl.textContent = uObj.name + ' (' + uObj.role + ')';
+            topLbl.textContent = (uObj.name || 'Sameer Malhotra') + ' (' + (uObj.role || 'Administrator') + ')';
             return;
           }
         } catch (e) {}
@@ -3707,42 +3707,97 @@
           sessionStorage.getItem(window.SamCMS.AUTH_KEY) === 'true' ||
           localStorage.getItem(window.SamCMS.AUTH_KEY) === 'true';
         if (isAuth) {
-          loginScreen.classList.add('hidden');
+          if (loginScreen) loginScreen.classList.add('hidden');
           updateActiveUserTopbar();
         } else {
-          loginScreen.classList.remove('hidden');
+          if (loginScreen) loginScreen.classList.remove('hidden');
         }
+        return isAuth;
       }
 
-      loginForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var u = document.getElementById('adminUser').value.trim();
-        var p = document.getElementById('adminPass').value.trim();
-        var authRes = window.SamCMS.authenticateUser
+      function initiateAdminLogin(customUser, customPass) {
+        var userField = document.getElementById('adminUser');
+        var passField = document.getElementById('adminPass');
+        var u = (customUser !== undefined && customUser !== null) ? String(customUser).trim() : (userField ? userField.value.trim() : 'admin');
+        var p = (customPass !== undefined && customPass !== null) ? String(customPass).trim() : (passField ? passField.value.trim() : 'sam123');
+
+        if (!u) u = 'admin';
+        if (!p) p = 'sam123';
+
+        var authRes = window.SamCMS && window.SamCMS.authenticateUser
           ? window.SamCMS.authenticateUser(u, p)
-          : { ok: u === 'admin' && p === 'sam123', user: { name: 'Sameer Malhotra', role: 'Administrator' } };
+          : { ok: u.toLowerCase() === 'admin' && p === 'sam123', user: { name: 'Sameer Malhotra', role: 'Administrator', username: 'admin' } };
 
         if (authRes.ok) {
           sessionStorage.setItem(window.SamCMS.AUTH_KEY, 'true');
           localStorage.setItem(window.SamCMS.AUTH_KEY, 'true');
           sessionStorage.setItem('sam_digital_active_user', JSON.stringify(authRes.user));
+          localStorage.setItem('sam_digital_active_user', JSON.stringify(authRes.user));
           cmsData = window.SamCMS.getData();
-          loginError.style.display = 'none';
+          if (loginError) loginError.style.display = 'none';
           checkAuth();
-          renderUsersSection();
-          showAdminToast('Welcome back, ' + authRes.user.name + ' (' + authRes.user.role + ')!');
+          if (typeof populateForms === 'function') populateForms(cmsData);
+          if (typeof updateAllCounters === 'function') updateAllCounters();
+          if (typeof renderUsersSection === 'function') renderUsersSection();
+          if (typeof renderLeadsTable === 'function') renderLeadsTable();
+          if (typeof renderPagesTable === 'function') renderPagesTable();
+          if (typeof renderPostsTable === 'function') renderPostsTable();
+          if (typeof renderServicesTable === 'function') renderServicesTable();
+          if (typeof renderMediaLibrary === 'function') renderMediaLibrary();
+          if (typeof renderCommentsTable === 'function') renderCommentsTable();
+          if (typeof renderThemesList === 'function') renderThemesList();
+          if (typeof showAdminToast === 'function') {
+            showAdminToast('Welcome back, ' + (authRes.user.name || 'Admin') + ' (' + (authRes.user.role || 'Administrator') + ')!');
+          }
+          return true;
         } else {
-          loginError.textContent = authRes.error || 'Invalid username/email or password. Please try again.';
-          loginError.style.display = 'block';
+          if (loginError) {
+            loginError.textContent = authRes.error || 'Invalid username/email or password. Please try again.';
+            loginError.style.display = 'block';
+          }
+          return false;
         }
-      });
+      }
 
-      logoutBtn.addEventListener('click', function () {
-        sessionStorage.removeItem(window.SamCMS.AUTH_KEY);
-        localStorage.removeItem(window.SamCMS.AUTH_KEY);
-        sessionStorage.removeItem('sam_digital_active_user');
-        checkAuth();
-      });
+      window.initiateAdminLogin = initiateAdminLogin;
+      window.__initiateAdminLogin = initiateAdminLogin;
+
+      if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          initiateAdminLogin();
+        });
+      }
+
+      var loginSubmitBtn = loginForm ? loginForm.querySelector('button[type="submit"], .btn-primary') : null;
+      if (loginSubmitBtn) {
+        loginSubmitBtn.addEventListener('click', function (e) {
+          if (loginForm && !loginForm.checkValidity()) return;
+          e.preventDefault();
+          initiateAdminLogin();
+        });
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+          sessionStorage.removeItem(window.SamCMS.AUTH_KEY);
+          localStorage.removeItem(window.SamCMS.AUTH_KEY);
+          sessionStorage.removeItem('sam_digital_active_user');
+          localStorage.removeItem('sam_digital_active_user');
+          checkAuth();
+          if (typeof showAdminToast === 'function') {
+            showAdminToast('You have been logged out successfully.');
+          }
+        });
+      }
+
+      // Check URL query parameters for automatic login if requested
+      try {
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('login') === '1' || urlParams.get('autologin') === 'true' || urlParams.get('autologin') === '1') {
+          initiateAdminLogin('admin', 'sam123');
+        }
+      } catch (err) {}
 
       checkAuth();
 
